@@ -4,13 +4,17 @@ import LanguagePopup from "./components/LanguagePopup";
 import CartModal from "./components/CartModal";
 import MenuCard from "./components/MenuCard";
 import { dummy } from "./dumy";
+import { useSelector } from "react-redux";
 
 const App = () => {
     const dataDumy = dummy;
     const [cartToggle, setCartToggle] = useState(false);
     const [languageToggle, setLanguageToggle] = useState(false);
     const [language, setLanguage] = useState("id");
+    const [searchValue, setSearchValue] = useState("");
     const refLanguageToggle = useRef();
+
+    const cartCount = useSelector((state) => state.cart.cart).length;
 
     const handleChangeLanguage = (lang) => {
         setLanguage(lang);
@@ -25,7 +29,7 @@ const App = () => {
                 <div className="flex items-center gap-x-3">
                     {/* shooping cart */}
                     <button className="p-2 rounded-full hover:bg-zinc-200 relative" onClick={() => setCartToggle(!cartToggle)}>
-                        <span className="flex items-center justify-center w-5 h-5 text-xs font-semibold bg-blue-500 text-white rounded-full absolute -top-1 -right-1">1</span>
+                        {cartCount > 0 && <span className="flex items-center justify-center w-5 h-5 text-xs font-semibold bg-blue-500 text-white rounded-full absolute -top-1 -right-1">{cartCount}</span>}
                         <MdShoppingCart className="h-5 w-5 text-black" />
                     </button>
                     {/* modal Cart */}
@@ -47,14 +51,18 @@ const App = () => {
             <div className="w-full h-auto p-3">
                 {/* searchbar */}
                 <div className="flex-1 w-full">
-                    <input type="search" name="search" id="search" className="w-full px-3 py-2 bg-white rounded-lg outline-none " placeholder="Search..." />
+                    <input type="search" name="search" id="search" className="w-full px-3 py-2 bg-white rounded-lg outline-none " placeholder="Search..." onChange={(e) => setSearchValue(e.target.value)} />
                 </div>
                 {/* card container */}
                 <div className="grid grid-cols-5 w-full h-full gap-3 py-3">
                     {/* card */}
-                    {dataDumy.map((item) => (
-                        <MenuCard key={item.id} props={item} />
-                    ))}
+                    {dataDumy
+                        .filter((item) => {
+                            return item.nama.toLowerCase().includes(searchValue.toLowerCase());
+                        })
+                        .map((item) => (
+                            <MenuCard key={item.id} props={item} />
+                        ))}
                 </div>
             </div>
         </main>

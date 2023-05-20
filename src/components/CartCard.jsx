@@ -20,7 +20,7 @@ const CartCard = ({ id, nama, harga, quantity }) => {
                 <button className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-md" onClick={() => dispatch(removeQuantity(id))}>
                     -
                 </button>
-                <input type="number" className="w-10 h-full text-center outline-none" inputMode="numeric" value={quantity} />
+                <p className="w-10 h-full text-center">{quantity}</p>
                 <button className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-md" onClick={() => dispatch(addQuantity(id))}>
                     +
                 </button>
