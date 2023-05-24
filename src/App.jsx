@@ -1,60 +1,38 @@
-import { useRef, useState } from "react";
-import { MdShoppingCart, MdExpandMore } from "react-icons/md";
-import LanguagePopup from "./components/LanguagePopup";
-import CartModal from "./components/CartModal";
+import { useState } from "react";
 import MenuCard from "./components/MenuCard";
 import { dummy } from "./dumy";
-import { useSelector } from "react-redux";
+import Sidebar from "./components/Sidebar";
+import { HiOutlineListBullet, HiOutlineSquares2X2 } from "react-icons/hi2";
+import Order from "./components/CurrentOrder";
 
 const App = () => {
     const dataDumy = dummy;
-    const [cartToggle, setCartToggle] = useState(false);
-    const [languageToggle, setLanguageToggle] = useState(false);
-    const [language, setLanguage] = useState("id");
     const [searchValue, setSearchValue] = useState("");
-    const refLanguageToggle = useRef();
-
-    const cartCount = useSelector((state) => state.cart.cart).length;
-
-    const handleChangeLanguage = (lang) => {
-        setLanguage(lang);
-    };
-    const handleCartToggle = (state) => {
-        setCartToggle(state);
-    };
     return (
-        <main className="w-full h-screen bg-zinc-100">
-            <header className="flex items-center justify-between p-3 sticky top-0 bg-zinc-100">
-                <h1 className="font-bold text-2xl text-blue-600">Restaurant</h1>
-                <div className="flex items-center gap-x-3">
-                    {/* shooping cart */}
-                    <button className="p-2 rounded-full hover:bg-zinc-200 relative" onClick={() => setCartToggle(!cartToggle)}>
-                        {cartCount > 0 && <span className="flex items-center justify-center w-5 h-5 text-xs font-semibold bg-blue-500 text-white rounded-full absolute -top-1 -right-1">{cartCount}</span>}
-                        <MdShoppingCart className="h-5 w-5 text-black" />
-                    </button>
-                    {/* modal Cart */}
-                    {cartToggle && <CartModal handleCartToggle={handleCartToggle} />}
-
-                    {/* language selection button */}
-                    <div className="relative">
-                        <button className="py-1 px-3 flex items-center hover:bg-zinc-200 rounded-md" title="Language" ref={refLanguageToggle} onClick={() => setLanguageToggle(!languageToggle)}>
-                            {language}{" "}
-                            <span>
-                                <MdExpandMore className="h-3 w-3" />
-                            </span>
-                        </button>
-                        {/* language modal */}
-                        {languageToggle && <LanguagePopup handleClose={() => setLanguageToggle(false)} refLanguageToggle={refLanguageToggle.current} handleChangeLanguage={handleChangeLanguage} currentLanguage={language} />}
+        <main className="w-full h-screen flex overflow-hidden overflow-y-auto divide-x-2 divide-zinc-200">
+            {/* sidebar */}
+            <Sidebar />
+            {/* main content */}
+            <div className="w-full flex-1 h-auto p-3">
+                {/* header */}
+                <header className="flex items-center gap-x-3">
+                    <h1 className="text-2xl font-bold">Restaurant</h1>
+                    {/* searchbar */}
+                    <div className="flex-1 w-full flex items-center justify-end gap-3">
+                        <input type="search" name="search" id="search" className="w-full max-w-lg px-3 py-2 bg-white rounded-lg outline-none border border-zinc-200" placeholder="Search..." onChange={(e) => setSearchValue(e.target.value)} />
+                        {/* card item */}
+                        {/* active */}
+                        <div className="p-2 border border-transparent bg-blue-500 text-white rounded-md cursor-pointer">
+                            <HiOutlineSquares2X2 className="w-6 h-6" />
+                        </div>
+                        {/* list item */}
+                        <div className="p-2 border border-zinc-200 rounded-md cursor-pointer">
+                            <HiOutlineListBullet className="w-6 h-6" />
+                        </div>
                     </div>
-                </div>
-            </header>
-            <div className="w-full h-auto p-3">
-                {/* searchbar */}
-                <div className="flex-1 w-full">
-                    <input type="search" name="search" id="search" className="w-full px-3 py-2 bg-white rounded-lg outline-none " placeholder="Search..." onChange={(e) => setSearchValue(e.target.value)} />
-                </div>
+                </header>
                 {/* card container */}
-                <div className="grid grid-cols-5 w-full h-full gap-3 py-3">
+                <div className="grid grid-cols-4 w-full gap-3 py-3">
                     {/* card */}
                     {dataDumy
                         .filter((item) => {
@@ -65,6 +43,8 @@ const App = () => {
                         ))}
                 </div>
             </div>
+            {/* order section */}
+            <Order />
         </main>
     );
 };

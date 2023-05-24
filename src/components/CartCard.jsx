@@ -17,11 +17,11 @@ const CartCard = ({ id, nama, harga, quantity }) => {
             </div>
             {/* action */}
             <div className="flex items-center h-auto w-auto">
-                <button className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-md" onClick={() => dispatch(removeQuantity(id))}>
+                <button className="flex items-center justify-center w-8 h-8 bg-blue-500 text-white hover:bg-blue-600 rounded-md" onClick={() => dispatch(removeQuantity(id))}>
                     -
                 </button>
                 <p className="w-10 h-full text-center">{quantity}</p>
-                <button className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-md" onClick={() => dispatch(addQuantity(id))}>
+                <button className="flex items-center justify-center w-8 h-8 bg-blue-500 text-white hover:bg-blue-600 rounded-md" onClick={() => dispatch(addQuantity(id))}>
                     +
                 </button>
             </div>
