@@ -1,11 +1,15 @@
 import { HiOutlineShoppingCart, HiOutlineSquares2X2 } from "react-icons/hi2";
+import logo from "../assets/img/logo.png";
 
 const Sidebar = () => {
     return (
         <aside className="p-2 sticky top-0 w-72">
             <div className="w-full h-full p-3 rounded-md shadow-md bg-zinc-100">
                 {/* logo */}
-                <div className="flex items-center">
+                <div className="flex items-center gap-x-2">
+                    <div className="w-12 aspect-square">
+                        <img src={logo} alt="" className="w-full h-full object-contain" />
+                    </div>
                     <h1 className="text-2xl font-bold">Restaurant</h1>
                 </div>
                 {/* menu */}

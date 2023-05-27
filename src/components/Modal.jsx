@@ -15,7 +15,7 @@ const Modal = () => {
         <div className="w-full h-screen absolute inset-0 bg-zinc-950 bg-opacity-60 flex items-center justify-center z-50">
             <div className="max-w-5xl w-full max-h-[500px] h-auto flex gap-x-3 bg-white rounded-xl shadow-lg overflow-hidden relative">
                 {/* Close Button */}
-                <div className="absolute top-3 right-3">
+                <div className="absolute top-3 right-2">
                     <HiXMark className="w-7 h-7 text-zinc-700 cursor-pointer" title="Close" onClick={() => dispatch(setModalStatus(false))} />
                 </div>
                 {/* gambar */}
@@ -23,9 +23,9 @@ const Modal = () => {
                     <img src={`https://source.unsplash.com/random/480x360/?${props.nama}`} alt="" className="w-full h-full object-contain" />
                 </div>
                 {/* content */}
-                <div className="px-3 py-2 overflow-y-auto scrollbar-thin">
+                <div className="pr-3 py-2 overflow-y-auto scrollbar-thin">
                     {/* title */}
-                    <h2 className="text-lg font-medium">{props.nama}</h2>
+                    <h2 className="text-3xl font-medium pr-5">{props.nama}</h2>
                     <p className="font-bold text-xl">{formatter.format(props.harga)}</p>
                     {/* deskripsi */}
                     <p className="flex-1 w-full mt-2">
