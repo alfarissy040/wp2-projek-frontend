@@ -3,6 +3,9 @@ import { dummy } from "./dumy";
 import { HiOutlineListBullet, HiOutlineSquares2X2 } from "react-icons/hi2";
 import CurrentOrder from "./components/CurrentOrder";
 import { useSelector } from "react-redux";
+import LoadingMenuCard from "./components/loading/LoadingMenuCard";
+import LoadingMenuList from "./components/loading/LoadingMenuList";
+import LoadingModalDetail from "./components/loading/LoadingModalDetail";
 
 const MenuGrid = React.lazy(() => import("./components/MenuCard"));
 const MenuList = React.lazy(() => import("./components/MenuList"));
@@ -42,11 +45,11 @@ const App = () => {
                         })
                         .map((item) =>
                             menuMode === "grid" ? (
-                                <Suspense key={item.id} fallback={<div>Loading</div>}>
+                                <Suspense key={item.id} fallback={<LoadingMenuCard />}>
                                     <MenuGrid id={item.id} nama={item.nama} harga={item.harga} quantity={item.quantity} />
                                 </Suspense>
                             ) : (
-                                <Suspense key={item.id} fallback={<div>Loading</div>}>
+                                <Suspense key={item.id} fallback={<LoadingMenuList />}>
                                     <MenuList id={item.id} nama={item.nama} harga={item.harga} quantity={item.quantity} />
                                 </Suspense>
                             )
@@ -56,7 +59,7 @@ const App = () => {
             {/* order section */}
             <CurrentOrder />
             {modalStatus && (
-                <Suspense fallback={<div>Loading</div>}>
+                <Suspense fallback={<LoadingModalDetail />}>
                     <ModalDetail />
                 </Suspense>
             )}
