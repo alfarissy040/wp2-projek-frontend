@@ -1,5 +1,7 @@
 import { HiOutlineShoppingCart, HiOutlineSquares2X2 } from "react-icons/hi2";
 import logo from "../assets/img/logo.png";
+import { NavLink } from "react-router-dom";
+import { Fragment } from "react";
 
 const Sidebar = () => {
     return (
@@ -15,24 +17,32 @@ const Sidebar = () => {
                 {/* menu */}
                 <div className="w-full flex items-center flex-col gap-3 mt-8">
                     {/* menu */}
-                    <div className="flex items-center gap-3 w-full bg-blue-200 p-2 rounded relative cursor-pointer">
-                        {/* accent */}
-                        <div className="w-1 h-6 bg-blue-500 absolute inset-0 my-auto"></div>
-                        {/* logo */}
-                        <HiOutlineSquares2X2 className="w-5 h-5" />
-                        {/* label */}
-                        <p>Menu</p>
-                    </div>
+                    <NavLink to="/" className="sidebar__item">
+                        {({ isActive }) => (
+                            <Fragment>
+                                {/* accent */}
+                                <span className={`w-1 h-6 bg-blue-500 absolute inset-0 my-auto ${!isActive ? "hidden" : ""}`}></span>
+                                {/* logo */}
+                                <HiOutlineSquares2X2 className="w-5 h-5" />
+                                {/* label */}
+                                <p>Menu</p>
+                            </Fragment>
+                        )}
+                    </NavLink>
                     {/* order */}
-                    <div className="flex items-center gap-3 w-full bg-white p-2 rounded relative cursor-pointer">
-                        {/* accent */}
-                        {/* <div className="w-1 h-6 bg-blue-500 absolute inset-0 my-auto"></div> */}
-                        {/* logo */}
-                        <HiOutlineShoppingCart className="w-5 h-5" />
-                        {/* label */}
-                        <p className="flex-1">My Order</p>
-                        <span className="text-zinc-400 text-xs">1 items</span>
-                    </div>
+                    <NavLink to={"/checkout"} className="sidebar__item">
+                        {({ isActive }) => (
+                            <Fragment>
+                                {/* accent */}
+                                <span className={`w-1 h-6 bg-blue-500 absolute inset-0 my-auto ${!isActive ? "hidden" : ""}`}></span>
+                                {/* logo */}
+                                <HiOutlineShoppingCart className="w-5 h-5" />
+                                {/* label */}
+                                <p className="flex-1">My Order</p>
+                                <span className="text-zinc-400 text-xs">1 items</span>
+                            </Fragment>
+                        )}
+                    </NavLink>
                 </div>
             </div>
         </aside>

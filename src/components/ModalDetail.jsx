@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setModalStatus } from "../features/ModalSlice";
 import { PropTypes } from "prop-types";
 
-const Modal = () => {
+const ModalDetail = () => {
     const props = useSelector(({ modal }) => modal.data)[0];
     const dispatch = useDispatch();
 
@@ -37,9 +37,9 @@ const Modal = () => {
         </div>
     );
 };
-Modal.propTypes = {
+ModalDetail.propTypes = {
     nama: PropTypes.string,
     harga: PropTypes.number,
 };
 
-export default Modal;
+export default ModalDetail;
