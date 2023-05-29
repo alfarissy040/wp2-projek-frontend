@@ -56,6 +56,7 @@ const App = () => {
                         )}
                 </div>
             </div>
+            <LoadingModalDetail />
             {/* order section */}
             <CurrentOrder />
             {modalStatus && (
