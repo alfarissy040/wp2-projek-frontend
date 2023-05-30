@@ -2,7 +2,7 @@ import { HiXMark } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalStatus } from "../features/ModalSlice";
 import { PropTypes } from "prop-types";
-import { addToCart } from "../features/CartSlice";
+import { addToCart } from "../features/OrderSlice";
 
 const ModalDetail = () => {
     const props = useSelector(({ modal }) => modal.data)[0];
@@ -11,6 +11,7 @@ const ModalDetail = () => {
     const formatter = new Intl.NumberFormat("ID", {
         style: "currency",
         currency: "IDR",
+        maximumSignificantDigits: 3,
     });
     return (
         <div className="w-full h-screen absolute inset-0 bg-zinc-950 bg-opacity-60 flex items-center justify-center z-50">
@@ -21,14 +22,14 @@ const ModalDetail = () => {
                 </div>
                 {/* gambar */}
                 <div className="h-[500px] aspect-[4/3] flex items-center justify-center">
-                    <img src={`https://source.unsplash.com/random/480x360/?${props.nama}`} alt="" className="w-full h-full object-contain" />
+                    <img src={`https://source.unsplash.com/random/480x360/?${props.name}`} alt="" className="w-full h-full object-contain" />
                 </div>
                 {/* content */}
                 <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between">
                     <div className="flex-1">
                         {/* title */}
-                        <h2 className="text-3xl font-medium pr-5">{props.nama}</h2>
-                        <p className="font-bold text-xl">{formatter.format(props.harga)}</p>
+                        <h2 className="text-3xl font-medium pr-5">{props.name}</h2>
+                        <p className="font-bold text-xl">{formatter.format(props.price)}</p>
                         {/* deskripsi */}
                         <p className="flex-1 w-full h-auto mt-2">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, iure fugiat accusantium, eum tenetur laborum dolore rerum nemo dicta praesentium accusamus odit voluptates optio consectetur deleniti. Quia,
@@ -44,8 +45,8 @@ const ModalDetail = () => {
     );
 };
 ModalDetail.propTypes = {
-    nama: PropTypes.string,
-    harga: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
 };
 
 export default ModalDetail;

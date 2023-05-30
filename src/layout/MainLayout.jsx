@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 
 const MainLayout = () => {
     return (
-        <main className="w-full h-screen flex overflow-hidden overflow-y-auto ">
+        <main className="w-full h-screen flex gap-x-3 overflow-hidden overflow-y-auto bg-gray p-2">
             {/* sidebar */}
             <Sidebar />
             {/* main content */}

@@ -2,11 +2,13 @@ import { HiOutlineShoppingCart, HiOutlineSquares2X2 } from "react-icons/hi2";
 import logo from "../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+    const order = useSelector(({ order }) => order.order).length;
     return (
-        <aside className="p-2 sticky top-0 w-72">
-            <div className="w-full h-full p-3 rounded-md shadow-md bg-zinc-100">
+        <aside className="sticky top-0 w-72">
+            <div className="w-full h-full p-3 rounded-md shadow-md bg-white">
                 {/* logo */}
                 <div className="flex items-center gap-x-2">
                     <div className="w-12 aspect-square">
@@ -39,7 +41,7 @@ const Sidebar = () => {
                                 <HiOutlineShoppingCart className="w-5 h-5" />
                                 {/* label */}
                                 <p className="flex-1">My Order</p>
-                                <span className="text-zinc-400 text-xs">1 items</span>
+                                <span className="text-zinc-400 text-xs">{order} items</span>
                             </Fragment>
                         )}
                     </NavLink>

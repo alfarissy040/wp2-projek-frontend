@@ -17,9 +17,9 @@ const App = () => {
     const [menuMode, setMenuMode] = useState("grid");
     const modalStatus = useSelector(({ modal }) => modal.status);
     return (
-        <div className="flex flex-1">
+        <div className="flex flex-1 gap-x-3">
             {/* main content */}
-            <div className="w-full flex-1 h-auto p-3">
+            <div className="w-full flex-1 h-auto">
                 {/* header */}
                 <header className="flex items-center gap-x-3">
                     {/* searchbar */}
@@ -41,22 +41,22 @@ const App = () => {
                     {/* card */}
                     {dataDumy
                         .filter((item) => {
-                            return item.nama.toLowerCase().includes(searchValue.toLowerCase());
+                            return item.name.toLowerCase().includes(searchValue.toLowerCase());
                         })
                         .map((item) =>
                             menuMode === "grid" ? (
                                 <Suspense key={item.id} fallback={<LoadingMenuCard />}>
-                                    <MenuGrid id={item.id} nama={item.nama} harga={item.harga} quantity={item.quantity} />
+                                    <MenuGrid id={item.id} name={item.name} price={item.price} quantities={item.quantities} />
                                 </Suspense>
                             ) : (
                                 <Suspense key={item.id} fallback={<LoadingMenuList />}>
-                                    <MenuList id={item.id} nama={item.nama} harga={item.harga} quantity={item.quantity} />
+                                    <MenuList id={item.id} name={item.name} price={item.price} quantities={item.quantities} />
                                 </Suspense>
                             )
                         )}
                 </div>
             </div>
-            <LoadingModalDetail />
+            {/* // <LoadingModalDetail /> */}
             {/* order section */}
             <CurrentOrder />
             {modalStatus && (
