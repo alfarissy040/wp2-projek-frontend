@@ -11,7 +11,7 @@ const CartCard = (props) => {
     const dispatch = useDispatch();
 
     return (
-        <div className="flex items-center w-full py-2">
+        <div className="flex items-center w-full py-2 bg-white">
             {/* content */}
             <div className="flex-1 w-full pr-1">
                 <h3 className="text-sm">{props.name}</h3>
