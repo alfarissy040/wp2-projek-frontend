@@ -2,11 +2,13 @@ import { HiXMark } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalStatus } from "../features/ModalSlice";
 import { PropTypes } from "prop-types";
-import { addToCart } from "../features/OrderSlice";
+import { addToCart, removeFromCart } from "../features/OrderSlice";
 
 const ModalDetail = () => {
     const props = useSelector(({ modal }) => modal.data)[0];
+    const cartItems = useSelector(({ order }) => order.cart.filter((item) => item.id === props.id));
     const dispatch = useDispatch();
+    const isSelected = cartItems.length > 0;
 
     const formatter = new Intl.NumberFormat("ID", {
         style: "currency",
@@ -36,8 +38,11 @@ const ModalDetail = () => {
                             assumenda quas sint quis consequuntur culpa aliquam odio architecto expedita dicta maxime cumque porro neque error blanditiis? Facere natus alias explicabo sed ab?
                         </p>
                     </div>
-                    <button className="px-3 py-2 mb-3 w-full rounded text-blue-500 border border-blue-500 bg-white text-sm hover:bg-blue-500 hover:text-white transition-colors" onClick={() => dispatch(addToCart(props))}>
-                        Add to cart
+                    <button
+                        className={`px-3 py-2 mb-3 w-full rounded text-sm  border border-blue-500 transition-colors ${isSelected ? "text-white bg-blue-500" : "bg-white text-blue-500 hover:bg-blue-500 hover:text-white"}`}
+                        onClick={() => (isSelected ? dispatch(removeFromCart(props)) : dispatch(addToCart(props)))}
+                    >
+                        {isSelected ? "Remove from cart" : "Add to cart"}
                     </button>
                 </div>
             </div>
@@ -45,6 +50,7 @@ const ModalDetail = () => {
     );
 };
 ModalDetail.propTypes = {
+    id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
 };
