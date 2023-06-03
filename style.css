@@ -58,8 +58,12 @@
     cursor: pointer;
 }
 
+.sidebar ul li.active {
+    background: rgb(5 150 105);
+    color: goldenrod;
+}
+
 .sidebar ul li:hover {
-    background: rgba(0, 0, 0, 0.2);
     color: goldenrod;
 }
 
