@@ -59,12 +59,8 @@
 }
 
 .sidebar ul li.active {
-    background: rgb(5 150 105);
-    color: goldenrod;
-}
-
-.sidebar ul li:hover {
-    color: goldenrod;
+    background: rgb(52 211 153);
+    color: white;
 }
 
 .container {
@@ -102,19 +98,9 @@
     align-items: center;
 }
 
-.user i {
-    width: 80px;
-    height: 80px;
-    font-size: 60px;
-    padding: 13px;
-    background: white;
-    border-radius: 100%;
-    color: black;
-    margin: 5px 5px;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    -o-border-radius: 100%;
+.user > img {
+    width: 100px;
+    object-fit: contain;
 }
 
 .content {
