@@ -9,17 +9,17 @@
 
 .btn_tambahmenu {
     padding: 8px 12px;
-    border-radius: 6px;
+    border-radius: 8px;
     background: #10b981;
     width: auto;
     color: white;
     outline: none;
     border: none;
     cursor: pointer;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 .btn_tambahmenu:hover {
@@ -256,6 +256,74 @@ td {
     background: rgb(153 27 27);
     color: white;
     text-align: center;
+}
+
+.bg_tm {
+    background-color: #e3e0f3;
+}
+
+.nav_taed > h1 {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+label {
+    margin-top: 10px;
+    float: left;
+    text-align: left;
+    width: 100%;
+}
+
+.base {
+    width: 400px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+input {
+    padding: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f8f8f8;
+    border: 2px solid rgb(16 185 129);
+    outline-color: blue;
+}
+
+button {
+    text-align: center;
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    border: 0;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.text-danger {
+    color: crimson;
+    font-size: 15px;
+}
+
+.kmbl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.kmbl > a {
+    padding: 10px;
+    border: none;
+    text-decoration: none;
+}
+
+.kmbl > a:nth-child(1) {
+    background-color: #000000;
+    color: #ff8c00;
 }
 
 @media screen and (max-width: 1050px) {
