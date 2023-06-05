@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        box-sizing: border-box;
+        list-style: none;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .btn_tambahmenu {
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: #10b981;
+        width: auto;
+        color: white;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        -o-border-radius: 6px;
+    }
+
+    .btn_tambahmenu:hover {
+        background: #059669;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 0;
+        width: 20vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .brand {
+        padding: 8px 12px;
+        height: 10vh;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+    .brand > h1 {
+        font-size: 26px;
+    }
+
+    .brand i {
+        font-size: 20px;
+    }
+
+    .logout button {
+        font-size: 20px;
+        background-color: white;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        margin-bottom: 5px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-left: 100px;
+        padding-right: 111px;
+        cursor: pointer;
+    }
+
+    .logout button:hover {
+        background-color: rgb(5 150 105);
+        color: white;
+    }
+
+    .adminSidebar__item {
+        @apply flex items-center gap-x-3 px-3 py-2 text-white;
+    }
+    .adminSidebar__item.active {
+        @apply bg-emerald-400;
+    }
+
+    .container {
+        flex: 1 1 0%;
+        height: auto;
+    }
+
+    .header {
+        position: sticky;
+        top: 0;
+        right: 0;
+        width: 80vw;
+        padding: 12px 16px;
+        background: #e3e0f3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1;
+    }
+
+    .nav {
+        width: 90%;
+        align-items: center;
+    }
+
+    .icon {
+        color: gray;
+        font-size: 40px;
+    }
+
+    i:hover {
+        color: goldenrod;
+    }
+
+    .content-2 {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .populer {
+        min-height: 50vh;
+        flex: 5;
+        border-radius: 12px;
+        background: white;
+        margin: 0 25px 25px 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        display: flex;
+        flex-direction: column;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 15px 10px;
+        border-bottom: 2px solid #999;
+    }
+
+    .title .btn,
+    .populer .btn {
+        border-radius: 4px;
+        background: rgb(16 185 129);
+        color: white;
+        padding: 6px 12px;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+    }
+
+    .title .btn:hover,
+    .populer .btn:hover {
+        background: rgb(5 150 105);
+        color: white;
+        text-align: center;
+    }
+
+    .table {
+        padding: 10px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 25px;
+    }
+
+    .edit_delete {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 15px 10px;
+    }
+
+    .edit_delete .btn_edit,
+    .table__tools .btn_edit {
+        border-radius: 4px;
+        background: rgb(16 185 129);
+        color: white;
+        padding: 4px 8px;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+    }
+
+    .edit_delete .btn_edit:hover,
+    .table__tools .btn_edit:hover {
+        background: rgb(4 120 87);
+        color: white;
+        text-align: center;
+    }
+
+    .edit_delete .btn_delete,
+    .table__tools .btn_delete {
+        border-radius: 4px;
+        background: rgb(220 38 38);
+        color: white;
+        padding: 4px 8px;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+    }
+
+    .edit_delete .btn_delete:hover,
+    .table__tools .btn_delete:hover {
+        background: rgb(153 27 27);
+        color: white;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 1050px) {
+        .sidebar ul li {
+            font-size: 18px;
+        }
+    }
+
+    @media screen and (max-width: 940px) {
+        .sidebar ul li span {
+            display: none;
+        }
+        .sidebar {
+            align-items: center;
+        }
+        .sidebar ul li i {
+            font-size: 30px;
+        }
+        .sidebar ul li:hover {
+            font-size: 8px 38px;
+        }
+    }
+
+    @media screen and (max-width: 536px) {
+        .brand h1 {
+            display: none;
+        }
+        .brand i {
+            font-size: 30px;
+        }
+        .cards {
+            justify-content: center;
+        }
+        .sidebar ul li i {
+            font-size: 20px;
+        }
+    }
+}
