@@ -1,12 +1,14 @@
 import { Fragment } from "react";
 import { FaHandHoldingUsd, FaUtensils } from "react-icons/fa";
 import { BsArrowLeftRight } from "react-icons/bs";
+import Header from "./Header";
 import DashboardCard from "./DashboardCard";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
     return (
         <Fragment>
+            <Header label="Dashboard" />
             <div className="flex items-center px-3 py-2 gap-x-3">
                 <DashboardCard label={"Total Order"} icon={<BsArrowLeftRight />} count={123} />
                 <DashboardCard label={"Total Order"} icon={<FaUtensils />} count={123} />

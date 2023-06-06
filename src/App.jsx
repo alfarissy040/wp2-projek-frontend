@@ -50,13 +50,13 @@ const App = () => {
                                 menuMode === "grid" ? (
                                     <Suspense key={item.id} fallback={<LoadingMenuCard />}>
                                         <motion.li className="h-auto flex flex-col flex-1" layout initial={{ opacity: 0, scale: "95%" }} animate={{ opacity: 1, scale: "100%" }}>
-                                            <MenuGrid id={item.id} name={item.name} price={item.price} quantities={item.quantities} isSelected={cartItems.includes(item.id)} />
+                                            <MenuGrid id={item.id} name={item.name} image={item.image} price={item.price} quantities={1} isSelected={cartItems.includes(item.id)} />
                                         </motion.li>
                                     </Suspense>
                                 ) : (
                                     <Suspense key={item.id} fallback={<LoadingMenuList />}>
                                         <motion.li layout initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}>
-                                            <MenuList id={item.id} name={item.name} price={item.price} quantities={item.quantities} isSelected={cartItems.includes(item.id)} />
+                                            <MenuList id={item.id} name={item.name} image={item.image} price={item.price} quantities={1} isSelected={cartItems.includes(item.id)} />
                                         </motion.li>
                                     </Suspense>
                                 )

@@ -30,7 +30,7 @@ const CurrentOrder = () => {
                         {/* card */}
                         {items.map((item) => (
                             <motion.li key={item.id} layout initial={{ x: -4, opacity: 0, scale: 1 }} animate={{ x: 0, opacity: 1 }} exit={{ opacity: 0, scale: 0.8 }}>
-                                <CartCard id={item.id} name={item.name} price={item.price} quantities={item.quantities} />
+                                <CartCard id={item.id} name={item.name} price={item.price} quantities={item.quantities > 0 ? item.quantities : 1} />
                             </motion.li>
                         ))}
                     </AnimatePresence>

@@ -102,8 +102,7 @@
     }
 
     .nav {
-        width: 90%;
-        align-items: center;
+        @apply flex-1;
     }
 
     .icon {

@@ -18,7 +18,7 @@ const MenuGrid = (props) => {
         <div className="w-full flex flex-col h-auto flex-1 rounded-lg shadow-md overflow-hidden border border-transparent bg-white">
             {/* image */}
             <div className="w-full aspect-[4/3] flex items-center justify-center">
-                <img src={`https://source.unsplash.com/random/480x360/?${props.name}`} onLoad={() => setImageLoading(false)} className={`w-full h-full object-contain ${imageLoading ? "animate-pulse" : null}`} loading="lazy" />
+                <img src={props.image} onLoad={() => setImageLoading(false)} className={`w-full h-full object-cover ${imageLoading ? "animate-pulse" : null}`} loading="lazy" />
             </div>
             {/* content */}
             <div className="px-3 py-2 flex flex-col flex-1">
@@ -47,6 +47,7 @@ const MenuGrid = (props) => {
 MenuGrid.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     isSelected: PropTypes.bool.isRequired,
 };

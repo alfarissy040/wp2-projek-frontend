@@ -25,12 +25,7 @@ export const OrderSlice = createSlice({
         },
 
         addQuantities: (state, action) => {
-            const updatedCart = state.cart.filter((item) => {
-                if (item.id === action.payload) {
-                    item.quantities += 1;
-                }
-                return item.quantities > 0;
-            });
+            const updatedCart = state.cart.filter((item) => (item.id === action.payload ? (item.quantities += 1) : item.quantities));
 
             state.cart = updatedCart;
             // update subtotal

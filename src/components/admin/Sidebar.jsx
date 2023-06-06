@@ -12,7 +12,7 @@ const Sidebar = () => {
             <div className="sidebar__content flex-1 flex flex-col justify-between">
                 <ul>
                     <li>
-                        <NavLink to={"/admin"} className="adminSidebar__item">
+                        <NavLink to={"/admin/dashboard"} className="adminSidebar__item">
                             <MdDashboard className="w-5 h-5" />
                             Dashboard
                         </NavLink>

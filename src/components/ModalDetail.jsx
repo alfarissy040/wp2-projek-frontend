@@ -24,7 +24,7 @@ const ModalDetail = () => {
                 </div>
                 {/* gambar */}
                 <div className="h-[500px] aspect-[4/3] flex items-center justify-center">
-                    <img src={`https://source.unsplash.com/random/480x360/?${props.name}`} alt="" className="w-full h-full object-contain" />
+                    <img src={props.image} alt="" className="w-full h-full object-contain" />
                 </div>
                 {/* content */}
                 <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between">
@@ -33,10 +33,7 @@ const ModalDetail = () => {
                         <h2 className="text-3xl font-medium pr-5">{props.name}</h2>
                         <p className="font-bold text-xl">{formatter.format(props.price)}</p>
                         {/* deskripsi */}
-                        <p className="flex-1 w-full h-auto mt-2">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, iure fugiat accusantium, eum tenetur laborum dolore rerum nemo dicta praesentium accusamus odit voluptates optio consectetur deleniti. Quia,
-                            assumenda quas sint quis consequuntur culpa aliquam odio architecto expedita dicta maxime cumque porro neque error blanditiis? Facere natus alias explicabo sed ab?
-                        </p>
+                        <p className="flex-1 w-full h-auto mt-2">{props.description}</p>
                     </div>
                     <button
                         className={`px-3 py-2 mb-3 w-full rounded text-sm  border border-blue-500 transition-colors ${isSelected ? "text-white bg-blue-500" : "bg-white text-blue-500 hover:bg-blue-500 hover:text-white"}`}
@@ -52,7 +49,9 @@ const ModalDetail = () => {
 ModalDetail.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
+    image: PropTypes.string,
     price: PropTypes.number,
+    description: PropTypes.string,
 };
 
 export default ModalDetail;

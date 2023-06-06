@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { PropTypes } from "prop-types";
 
-const Header = () => {
+const Header = (props) => {
     const [dateState, useDateState] = useState(new Date());
 
     useEffect(() => {
@@ -9,7 +10,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="nav">
-                <h1 className="text-2xl font-bold">Dashboard</h1>
+                <h1 className="text-2xl font-bold">{props.label}</h1>
                 <small>
                     {dateState.toLocaleDateString("id-ID", {
                         day: "numeric",
@@ -25,8 +26,13 @@ const Header = () => {
                     WIB
                 </small>
             </div>
+            {props.btn}
         </header>
     );
+};
+Header.propTypes = {
+    label: PropTypes.string.isRequired,
+    btn: PropTypes.func,
 };
 
 export default Header;
