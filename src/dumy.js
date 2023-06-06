@@ -234,6 +234,66 @@ const dummy = [
         description:
             "Onsen Tamago adalah makanan Jepang berupa telur rebus yang dimasak dengan suhu rendah sehingga putih telurnya lembut dan kuning telurnya cair. Onsen Tamago biasanya disajikan dengan kaldu dashi, kecap asin, dan daun bawang. Onsen Tamago merupakan makanan yang berasal dari tradisi memasak telur di air panas alami.",
     },
+    {
+        id: 31,
+        name: "Ramune",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Ramune-lemonade%2Cjapan.JPG/800px-Ramune-lemonade%2Cjapan.JPG",
+        price: 10000,
+        description:
+            "Ramune adalah minuman ringan berkarbonasi yang berasal dari Jepang. Ramune memiliki botol kaca khas dengan bola kaca yang berfungsi sebagai penutup. Ramune memiliki berbagai rasa, seperti anggur, melon, stroberi, dan lain-lain.",
+    },
+    {
+        id: 32,
+        name: "Matcha",
+        image: "https://upload.wikimedia.org/wikipedia/commons/7/72/Powderedgreentea.jpg",
+        price: 20000,
+        description:
+            "Matcha adalah teh hijau bubuk yang berasal dari Jepang. Matcha dibuat dengan menumbuk daun teh hijau yang dikeringkan. Matcha memiliki warna hijau cerah dan rasa pahit. Matcha biasanya diseduh dengan air panas dan dikocok dengan kuas bambu.",
+    },
+    {
+        id: 33,
+        name: "Calpis",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Calpis_karupisu.JPG/800px-Calpis_karupisu.JPG",
+        price: 15000,
+        description: "Calpis adalah minuman fermentasi susu yang berasal dari Jepang. Calpis memiliki rasa asam manis dan aroma susu. Calpis biasanya dicampur dengan air atau soda sebelum diminum.",
+    },
+    {
+        id: 34,
+        name: "Amazake",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Amazake_by_emily_harbour_in_july.jpg/1280px-Amazake_by_emily_harbour_in_july.jpg",
+        price: 25000,
+        description: "Amazake adalah minuman tradisional Jepang yang dibuat dari beras ketan yang difermentasi dengan ragi beras. Amazake memiliki rasa manis dan tekstur kental. Amazake biasanya disajikan hangat dengan jahe parut.",
+    },
+    {
+        id: 35,
+        name: "Mugicha",
+        image: "https://upload.wikimedia.org/wikipedia/commons/0/09/Boricha_%28barley_tea%29.jpg",
+        price: 10000,
+        description: "Mugicha adalah teh gandum panggang yang berasal dari Jepang. Mugicha memiliki rasa gurih dan aroma gandum. Mugicha biasanya diseduh dengan air dingin dan diminum sebagai minuman penyegar di musim panas.",
+    },
+    {
+        id: 36,
+        name: "Ume-shu",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Umeshu_on_the_rocks.jpg/800px-Umeshu_on_the_rocks.jpg",
+        price: 60000,
+        description:
+            "Ume-shu adalah minuman beralkohol yang dibuat dari buah plum Jepang (ume) yang direndam dalam alkohol dan gula. Ume-shu memiliki rasa asam manis dan aroma plum. Ume-shu biasanya diminum dingin dengan es atau dicampur dengan soda.",
+    },
+    {
+        id: 37,
+        name: "Kombucha",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Kombucha_Mature.jpg",
+        price: 20000,
+        description:
+            "Kombucha adalah minuman fermentasi teh yang berasal dari Asia Timur. Kombucha dibuat dengan menambahkan kultur ragi dan bakteri ke dalam teh manis. Kombucha memiliki rasa asam dan sedikit berkarbonasi. Kombucha diklaim memiliki manfaat kesehatan, seperti meningkatkan sistem imun dan pencernaan.",
+    },
+    {
+        id: 38,
+        name: "Genmaicha",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Genmaicha_tea_brewed_and_unbrewed.jpg/800px-Genmaicha_tea_brewed_and_unbrewed.jpg",
+        price: 15000,
+        description: "Genmaicha adalah teh hijau yang dicampur dengan beras panggang. Genmaicha memiliki rasa gurih dan aroma beras. Genmaicha biasanya diseduh dengan air panas dan diminum tanpa gula.",
+    },
 
     // {
     //     id: 1,
