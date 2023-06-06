@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 
 const Header = (props) => {
-    const [dateState, useDateState] = useState(new Date());
+    const [dateState, setDateState] = useState(new Date());
 
     useEffect(() => {
-        setInterval(() => useDateState(new Date()), 20000);
+        setInterval(() => setDateState(new Date()), 20000);
     }, []);
     return (
         <header className="header">
@@ -21,6 +21,7 @@ const Header = (props) => {
                     {dateState.toLocaleString("id-ID", {
                         hour: "numeric",
                         minute: "numeric",
+                        second: "numeric",
                         hour12: false,
                     })}{" "}
                     WIB

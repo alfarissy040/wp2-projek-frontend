@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
+import CheckoutTableItem from "./CheckoutTableItem";
 
 const Checkout = () => {
     const order = useSelector(({ order }) => order.order);
     const total = useSelector(({ order }) => order.orderSubTotal);
-
-    console.log(order);
 
     const formatter = new Intl.NumberFormat("ID", {
         style: "currency",
         currency: "IDR",
         maximumSignificantDigits: 3,
     });
+
     return (
         <div className="w-full max-w-4xl h-full mx-auto flex flex-col overflow-hidden rounded-md shadow-md">
             {/* main content */}
@@ -37,14 +37,7 @@ const Checkout = () => {
                             </thead>
                             <tbody>
                                 {order.map((item) => (
-                                    <tr className="bg-white border-b" key={item.id}>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                            {item.name}
-                                        </th>
-                                        <td className={`px-6 py-4 ${item.status ? "text-blue-500" : "text-rose-500"}`}>{item.status ? "Complete" : "On Process"}</td>
-                                        <td className="px-6 py-4">{item.quantities}</td>
-                                        <td className="px-6 py-4">{formatter.format(item.price)}</td>
-                                    </tr>
+                                    <CheckoutTableItem id={item.id} name={item.name} price={item.price} quantities={item.quantities} date={item.date} key={Date.now()} />
                                 ))}
                             </tbody>
                         </table>

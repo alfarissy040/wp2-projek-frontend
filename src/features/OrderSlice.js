@@ -57,6 +57,7 @@ export const OrderSlice = createSlice({
         // order
 
         addOrder: (state, action) => {
+            const date = Date.now();
             const order = action.payload.map((item) => {
                 return {
                     id: item.id,
@@ -64,6 +65,7 @@ export const OrderSlice = createSlice({
                     price: item.price,
                     status: false,
                     quantities: item.quantities,
+                    date: date,
                 };
             });
 
