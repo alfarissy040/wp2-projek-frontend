@@ -1,9 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutTableItem from "./CheckoutTableItem";
+import ModalCheckout from "./ModalCheckout";
+import { setCheckoutModalStatus } from "../features/ModalSlice";
 
 const Checkout = () => {
     const order = useSelector(({ order }) => order.order);
     const total = useSelector(({ order }) => order.orderSubTotal);
+    const modal = useSelector(({ modal }) => modal.checkoutStatus);
+    const dispatch = useDispatch();
 
     const formatter = new Intl.NumberFormat("ID", {
         style: "currency",
@@ -53,9 +57,12 @@ const Checkout = () => {
                     <p className="text-lg font-bold">{formatter.format(total)}</p>
                 </div>
                 <div className="flex justify-end mt-2">
-                    <button className="px-3 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">Checkout</button>
+                    <button className="px-3 py-2 rounded bg-blue-500 text-white hover:bg-blue-600" onClick={() => dispatch(setCheckoutModalStatus(true))}>
+                        Checkout
+                    </button>
                 </div>
             </div>
+            {modal && <ModalCheckout />}
         </div>
     );
 };

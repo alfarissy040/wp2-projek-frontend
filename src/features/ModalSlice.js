@@ -5,6 +5,7 @@ export const ModalSlice = createSlice({
     name: "modal",
     initialState: {
         status: false,
+        checkoutStatus: false,
         data: {},
     },
     reducers: {
@@ -17,10 +18,15 @@ export const ModalSlice = createSlice({
             // memunculkan modal
             state.status = true;
         },
+
+        // checkout modal
+        setCheckoutModalStatus: (state, action) => {
+            state.checkoutStatus = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setModalStatus, showModal } = ModalSlice.actions;
+export const { setModalStatus, showModal, setCheckoutModalStatus } = ModalSlice.actions;
 
 export default ModalSlice.reducer;
