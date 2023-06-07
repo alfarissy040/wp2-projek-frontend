@@ -15,7 +15,7 @@ const CurrentOrder = () => {
     });
     return (
         <motion.div
-            className="w-full h-[calc(100dvh-16px)] max-w-[350px] sticky top-0 bg-white rounded-md shadow overflow-hidden"
+            className="w-full h-[calc(100dvh-16px)] max-w-[18rem] sticky top-0 bg-white rounded-md shadow overflow-hidden"
             initial={{ x: 4, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 4, opacity: 0 }}
