@@ -1,7 +1,7 @@
 import logo from "../../assets/img/logo.png";
 import { NavLink } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
-import { FaUtensils, FaShoppingCart, FaMoneyCheckAlt } from "react-icons/fa";
+import { FaUtensils, FaMoneyCheckAlt } from "react-icons/fa";
 const Sidebar = () => {
     return (
         <div className="sidebar bg-emerald-500 h-screen">
@@ -21,12 +21,6 @@ const Sidebar = () => {
                         <NavLink to={"/admin/menu"} className="adminSidebar__item">
                             <FaUtensils className="w-5 h-5" />
                             Menu
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to={"/admin/order"} className="adminSidebar__item">
-                            <FaShoppingCart className="w-5 h-5" />
-                            Order
                         </NavLink>
                     </li>
                     <li>

@@ -5,7 +5,6 @@ import AdminLayout from "./layout/AdminLayout";
 import Checkout from "./components/Checkout";
 import Dashboard from "./components/admin/Dashboard";
 import Menu from "./components/admin/Menu";
-import Order from "./components/admin/Order";
 import Transaksi from "./components/admin/Transaksi";
 
 const router = createBrowserRouter([
@@ -39,10 +38,6 @@ const router = createBrowserRouter([
             {
                 path: "menu",
                 element: <Menu />,
-            },
-            {
-                path: "order",
-                element: <Order />,
             },
             {
                 path: "transaksi",

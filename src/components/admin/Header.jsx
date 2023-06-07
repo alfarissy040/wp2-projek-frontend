@@ -21,7 +21,6 @@ const Header = (props) => {
                     {dateState.toLocaleString("id-ID", {
                         hour: "numeric",
                         minute: "numeric",
-                        second: "numeric",
                         hour12: false,
                     })}{" "}
                     WIB
