@@ -12,7 +12,7 @@ const ModalCheckoutQr = () => {
             {/* input form */}
             <div className="flex items-center justify-center p-3">
                 {/* qrcode */}
-                <QRCodeSVG value="https://reactjs.org/" size={200} />
+                <QRCodeSVG value="https://www.youtube.com/watch?v=E4WlUXrJgy4" size={200} />
             </div>
             <div className="flex items-center justify-end">
                 <button className="px-3 py-2 rounded text-white bg-blue-500" onClick={() => dispatch(setCheckoutModalStatus(false))}>

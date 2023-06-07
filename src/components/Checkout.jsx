@@ -40,8 +40,8 @@ const Checkout = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {order.map((item) => (
-                                    <CheckoutTableItem id={item.id} name={item.name} price={item.price} quantities={item.quantities} date={item.date} key={Date.now()} />
+                                {order.map((item, index) => (
+                                    <CheckoutTableItem id={item.id} name={item.name} price={item.price} quantities={item.quantities} date={item.date} key={index} />
                                 ))}
                             </tbody>
                         </table>

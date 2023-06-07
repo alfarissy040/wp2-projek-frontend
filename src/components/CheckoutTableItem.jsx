@@ -10,8 +10,12 @@ const CheckoutTableItem = (props) => {
         maximumSignificantDigits: 3,
     });
 
+    const isDone = () => {
+        return Date.now() - props.date > 5000 ? setStatus(true) : setStatus(false);
+    };
+
     useEffect(() => {
-        setInterval(() => (Date.now() - props.date > 5000 ? setStatus(true) : setStatus(false)), 1000);
+        setInterval(() => (isDone(), 1000));
     }, [props.date]);
     return (
         <tr className="bg-white border-b" key={props.id}>
