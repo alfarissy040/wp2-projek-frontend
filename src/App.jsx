@@ -15,15 +15,19 @@ const App = () => {
     const [menus, setMenus] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [menuMode, setMenuMode] = useState("grid");
+    const [loading, setLoading] = useState(true);
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
     const modalStatus = useSelector(({ modal }) => modal.status);
     const cartItems = useSelector(({ order }) => order.cart.map((item) => item.id));
 
     useEffect(() => {
-        const url = "http://localhost:8080/";
-        axios.get(url + "menus").then((res) => {
+        setLoading(true);
+        axios.get(baseUrl + "menus").then((res) => {
+            setLoading(false);
             setMenus(res.data.data);
         });
-    }, []);
+    }, [baseUrl]);
     return (
         <div className="flex flex-1 gap-x-3">
             {/* main content */}
@@ -54,15 +58,21 @@ const App = () => {
                             })
                             .map((item) =>
                                 menuMode === "grid" ? (
-                                    <Suspense key={item.id} fallback={<LoadingMenuCard />}>
-                                        <motion.li className="h-auto flex flex-col flex-1" layout initial={{ opacity: 0, scale: "95%" }} animate={{ opacity: 1, scale: "100%" }}>
-                                            <MenuGrid id={item.id} name={item.name} image={item.image} price={parseInt(item.price)} quantities={1} isSelected={cartItems.includes(item.id)} />
-                                        </motion.li>
-                                    </Suspense>
+                                    loading ? (
+                                        <LoadingMenuCard />
+                                    ) : (
+                                        <Suspense key={item.id} fallback={<LoadingMenuCard />}>
+                                            <motion.li className="h-auto flex flex-col flex-1" layout initial={{ opacity: 0, scale: "95%" }} animate={{ opacity: 1, scale: "100%" }}>
+                                                <MenuGrid id={item.id} name={item.name} image={baseUrl + item.image} price={parseInt(item.price)} quantities={1} isSelected={cartItems.includes(item.id)} />
+                                            </motion.li>
+                                        </Suspense>
+                                    )
+                                ) : loading ? (
+                                    <LoadingMenuList />
                                 ) : (
                                     <Suspense key={item.id} fallback={<LoadingMenuList />}>
                                         <motion.li layout initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}>
-                                            <MenuList id={item.id} name={item.name} image={item.image} price={parseInt(item.price)} quantities={1} isSelected={cartItems.includes(item.id)} />
+                                            <MenuList id={item.id} name={item.name} image={baseUrl + item.image} price={parseInt(item.price)} quantities={1} isSelected={cartItems.includes(item.id)} />
                                         </motion.li>
                                     </Suspense>
                                 )

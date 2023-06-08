@@ -2,9 +2,16 @@ import { HiXMark } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { PropTypes } from "prop-types";
 import { setAdminModalStatus } from "../../features/ModalSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import LoadingModalDetail from "../loading/LoadingModalDetail";
 
 const AdminModalDetail = () => {
-    const props = useSelector(({ modal }) => modal.data)[0];
+    const [props, setProps] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
+    const dataId = useSelector(({ modal }) => modal.dataId);
     const dispatch = useDispatch();
 
     const formatter = new Intl.NumberFormat("ID", {
@@ -12,7 +19,17 @@ const AdminModalDetail = () => {
         currency: "IDR",
         maximumSignificantDigits: 3,
     });
-    return (
+
+    useEffect(() => {
+        setLoading(true);
+        axios.get(baseUrl + "menus").then((res) => {
+            setLoading(false);
+            setProps(res.data.data.filter(({ id }) => id === dataId)[0]);
+        });
+    }, [dataId, baseUrl]);
+    return loading ? (
+        <LoadingModalDetail />
+    ) : (
         <div className="w-full h-screen absolute inset-0 bg-zinc-950 bg-opacity-60 flex items-center justify-center z-50">
             <div className="max-w-5xl w-full max-h-[500px] h-auto flex gap-x-3 bg-white rounded-xl shadow-lg overflow-hidden relative">
                 {/* Close Button */}
@@ -21,7 +38,7 @@ const AdminModalDetail = () => {
                 </div>
                 {/* gambar */}
                 <div className="h-[500px] aspect-[4/3] flex items-center justify-center">
-                    <img src={props.image} alt="" className="w-full h-full object-contain" />
+                    <img src={`http://localhost:8080/${props.image}`} alt="" className="w-full h-full object-contain" />
                 </div>
                 {/* content */}
                 <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between">
