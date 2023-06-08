@@ -1,23 +1,29 @@
-import React, { Suspense, useState } from "react";
-import { dummy } from "./dumy";
+import React, { Suspense, useEffect, useState } from "react";
 import { HiOutlineListBullet, HiOutlineSquares2X2 } from "react-icons/hi2";
 import CurrentOrder from "./components/CurrentOrder";
 import { useSelector } from "react-redux";
 import LoadingMenuCard from "./components/loading/LoadingMenuCard";
 import LoadingMenuList from "./components/loading/LoadingMenuList";
-import LoadingModalDetail from "./components/loading/LoadingModalDetail";
+import ModalDetail from "./components/ModalDetail";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
 
 const MenuGrid = React.lazy(() => import("./components/MenuGrid"));
 const MenuList = React.lazy(() => import("./components/MenuList"));
-const ModalDetail = React.lazy(() => import("./components/ModalDetail"));
 
 const App = () => {
-    const [dataDumy] = useState(dummy);
+    const [menus, setMenus] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [menuMode, setMenuMode] = useState("grid");
     const modalStatus = useSelector(({ modal }) => modal.status);
     const cartItems = useSelector(({ order }) => order.cart.map((item) => item.id));
+
+    useEffect(() => {
+        const url = "http://localhost:8080/";
+        axios.get(url + "menus").then((res) => {
+            setMenus(res.data.data);
+        });
+    }, []);
     return (
         <div className="flex flex-1 gap-x-3">
             {/* main content */}
@@ -42,7 +48,7 @@ const App = () => {
                 <ul className={`grid w-full gap-3 py-3 ${menuMode === "grid" ? "grid-cols-3" : "grid-cols-1"}`}>
                     {/* card */}
                     <AnimatePresence mode="popLayout">
-                        {dataDumy
+                        {menus
                             .filter((item) => {
                                 return item.name.toLowerCase().includes(searchValue.toLowerCase());
                             })
@@ -50,13 +56,13 @@ const App = () => {
                                 menuMode === "grid" ? (
                                     <Suspense key={item.id} fallback={<LoadingMenuCard />}>
                                         <motion.li className="h-auto flex flex-col flex-1" layout initial={{ opacity: 0, scale: "95%" }} animate={{ opacity: 1, scale: "100%" }}>
-                                            <MenuGrid id={item.id} name={item.name} image={item.image} price={item.price} quantities={1} isSelected={cartItems.includes(item.id)} />
+                                            <MenuGrid id={item.id} name={item.name} image={item.image} price={parseInt(item.price)} quantities={1} isSelected={cartItems.includes(item.id)} />
                                         </motion.li>
                                     </Suspense>
                                 ) : (
                                     <Suspense key={item.id} fallback={<LoadingMenuList />}>
                                         <motion.li layout initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}>
-                                            <MenuList id={item.id} name={item.name} image={item.image} price={item.price} quantities={1} isSelected={cartItems.includes(item.id)} />
+                                            <MenuList id={item.id} name={item.name} image={item.image} price={parseInt(item.price)} quantities={1} isSelected={cartItems.includes(item.id)} />
                                         </motion.li>
                                     </Suspense>
                                 )
@@ -67,11 +73,7 @@ const App = () => {
             {/* // <LoadingModalDetail /> */}
             {/* order section */}
             <CurrentOrder />
-            {modalStatus && (
-                <Suspense fallback={<LoadingModalDetail />}>
-                    <ModalDetail />
-                </Suspense>
-            )}
+            {modalStatus && <ModalDetail />}
         </div>
     );
 };

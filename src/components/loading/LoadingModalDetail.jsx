@@ -1,7 +1,14 @@
+import { HiXMark } from "react-icons/hi2";
+import { useDispatch } from "react-redux";
+import { setModalStatus } from "../../features/ModalSlice";
 const LoadingModalDetail = () => {
+    const dispatch = useDispatch();
     return (
         <div className="w-full h-screen absolute inset-0 bg-zinc-950 bg-opacity-60 flex items-center justify-center z-50">
             <div className="max-w-5xl w-full max-h-[500px] h-auto flex gap-x-3 bg-white rounded-xl shadow-lg overflow-hidden relative">
+                <div className="absolute top-3 right-2">
+                    <HiXMark className="w-7 h-7 text-zinc-700 cursor-pointer" title="Close" onClick={() => dispatch(setModalStatus(false))} />
+                </div>
                 {/* gambar */}
                 <div className="h-[500px] aspect-[4/3] flex items-center justify-center">
                     <div className="w-full h-full bg-zinc-300 animate-pulse"></div>

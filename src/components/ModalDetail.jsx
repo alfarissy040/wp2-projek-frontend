@@ -3,19 +3,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { setModalStatus } from "../features/ModalSlice";
 import { PropTypes } from "prop-types";
 import { addToCart, removeFromCart } from "../features/OrderSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import LoadingModalDetail from "./loading/LoadingModalDetail";
 
 const ModalDetail = () => {
-    const props = useSelector(({ modal }) => modal.data)[0];
+    const [props, setProps] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const dataId = useSelector(({ modal }) => modal.dataId);
     const cartItems = useSelector(({ order }) => order.cart.filter((item) => item.id === props.id));
     const dispatch = useDispatch();
     const isSelected = cartItems.length > 0;
+
+    useEffect(() => {
+        setLoading(true);
+        const url = "http://localhost:8080/";
+        axios.get(url + "menus").then((res) => {
+            setLoading(false);
+            setProps(res.data.data.filter(({ id }) => id === dataId)[0]);
+        });
+    }, [dataId]);
 
     const formatter = new Intl.NumberFormat("ID", {
         style: "currency",
         currency: "IDR",
         maximumSignificantDigits: 3,
     });
-    return (
+    return loading ? (
+        <LoadingModalDetail />
+    ) : (
         <div className="w-full h-screen absolute inset-0 bg-zinc-950 bg-opacity-60 flex items-center justify-center z-50">
             <div className="max-w-5xl w-full max-h-[500px] h-auto flex gap-x-3 bg-white rounded-xl shadow-lg overflow-hidden relative">
                 {/* Close Button */}
@@ -27,7 +44,7 @@ const ModalDetail = () => {
                     <img src={props.image} alt="" className="w-full h-full object-contain" />
                 </div>
                 {/* content */}
-                <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between">
+                <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between flex-1 w-full">
                     <div className="flex-1">
                         {/* title */}
                         <h2 className="text-3xl font-medium pr-5">{props.name}</h2>

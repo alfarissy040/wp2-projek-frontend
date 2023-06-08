@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dummy } from "../dumy";
 
 export const ModalSlice = createSlice({
     name: "modal",
@@ -7,7 +6,7 @@ export const ModalSlice = createSlice({
         status: false,
         checkoutStatus: false,
         adminStatus: false,
-        data: {},
+        dataId: null,
     },
     reducers: {
         setModalStatus: (state, action) => {
@@ -15,7 +14,7 @@ export const ModalSlice = createSlice({
         },
 
         showModal: (state, action) => {
-            state.data = dummy.filter((item) => item.id === action.payload);
+            state.dataId = action.payload;
             // memunculkan modal
             state.status = true;
         },
@@ -31,7 +30,7 @@ export const ModalSlice = createSlice({
         },
 
         showAdminModal: (state, action) => {
-            state.data = dummy.filter((item) => item.id === action.payload);
+            state.dataId = action.payload;
             // memunculkan modal
             state.adminStatus = true;
         },
