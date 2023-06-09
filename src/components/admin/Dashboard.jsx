@@ -1,18 +1,51 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FaHandHoldingUsd, FaUtensils } from "react-icons/fa";
 import { BsArrowLeftRight } from "react-icons/bs";
 import Header from "./Header";
 import DashboardCard from "./DashboardCard";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import LoadingDashboardCard from "./loading/LoadingDashboardCard";
 
 const Dashboard = () => {
+    const [popularMenu, setPopularMenu] = useState([]);
+    const [dashboardMenu, setDashboardMenu] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
+    const formatter = new Intl.NumberFormat("ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumSignificantDigits: 3,
+    });
+
+    useEffect(() => {
+        setLoading(true);
+        axios.get(baseUrl + "dashboard").then((res) => {
+            setDashboardMenu(res.data);
+        });
+        axios.get(baseUrl + "menus/popular").then((res) => {
+            setPopularMenu(res.data);
+            setLoading(false);
+        });
+    }, [baseUrl]);
     return (
         <Fragment>
             <Header label="Dashboard" />
             <div className="flex items-center px-3 py-2 gap-x-3">
-                <DashboardCard label={"Total Order"} icon={<BsArrowLeftRight />} count={123} />
-                <DashboardCard label={"Total Order"} icon={<FaUtensils />} count={123} />
-                <DashboardCard label={"Total Order"} icon={<FaHandHoldingUsd />} count={123} />
+                {loading ? (
+                    <Fragment>
+                        <LoadingDashboardCard />
+                        <LoadingDashboardCard />
+                        <LoadingDashboardCard />
+                    </Fragment>
+                ) : (
+                    <Fragment>
+                        <DashboardCard label={"Sold"} icon={<BsArrowLeftRight />} count={dashboardMenu.sold} />
+                        <DashboardCard label={"Menus"} icon={<FaUtensils />} count={dashboardMenu.total_menu} />
+                        <DashboardCard label={"Amount"} icon={<FaHandHoldingUsd />} count={formatter.format(parseInt(dashboardMenu.amount))} />
+                    </Fragment>
+                )}
             </div>
             <div className="relative px-3 py-2">
                 <div className="py-3 flex items-center justify-between">
@@ -39,14 +72,16 @@ const Dashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="bg-zinc-100 border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td className="px-6 py-4">1</td>
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Apple MacBook Pro 17
-                            </th>
-                            <td className="px-6 py-4">$2999</td>
-                            <td className="px-6 py-4">222</td>
-                        </tr>
+                        {popularMenu.map((item, index) => (
+                            <tr className="bg-zinc-100 border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
+                                <td className="px-6 py-4">{index}</td>
+                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {item.name}
+                                </th>
+                                <td className="px-6 py-4">{formatter.format(parseInt(item.price))}</td>
+                                <td className="px-6 py-4">{item.sold > 0 ? item.sold : 0}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

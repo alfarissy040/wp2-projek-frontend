@@ -1,11 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
 import Header from "./Header";
 import MenuList from "./MenuList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AdminModalDetail from "./AdminModalDetail";
 import { AnimatePresence, motion } from "framer-motion";
 import LoadingAdminMenuList from "./loading/LoadingAdminMenuList";
 import axios from "axios";
+import AddMenu from "./AddMenu";
+import { showadminMenuStatus } from "../../features/ModalSlice";
 
 const Menu = () => {
     const [searchValue, setSearchValue] = useState("");
@@ -14,6 +16,8 @@ const Menu = () => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
     const modalStatus = useSelector(({ modal }) => modal.adminStatus);
+    const adminMenuStatus = useSelector(({ modal }) => modal.adminMenuStatus);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setLoading(true);
@@ -25,7 +29,12 @@ const Menu = () => {
 
     return (
         <Fragment>
-            <Header label="Menu" btn={<ButtonTambah />} />
+            <div className="flex items-center justify-between sticky top-0 bg-[#e3e0f3] z-40">
+                <Header label="Menu" />
+                <button className="px-3 py-2 rounded text-white bg-emerald-500 hover:bg-emerald-600 mr-3" onClick={() => dispatch(showadminMenuStatus(true))}>
+                    Tambah menu
+                </button>
+            </div>
             {/* search */}
             <div className="px-3 py-2">
                 <input type="search" name="search" id="search" className="w-full px-3 py-2 bg-white rounded-lg outline-none border border-zinc-200 shadow-md" placeholder="Search..." onChange={(e) => setSearchValue(e.target.value)} />
@@ -53,10 +62,17 @@ const Menu = () => {
                 )}
             </ul>
             {modalStatus && <AdminModalDetail />}
+            <AnimatePresence>{adminMenuStatus && <AddMenu />}</AnimatePresence>
         </Fragment>
     );
 };
 
-const ButtonTambah = () => <button className="px-3 py-2 rounded text-white bg-emerald-500 hover:bg-emerald-600">Tambah menu</button>;
+const ButtonTambah = ({ handleClick }) => {
+    return (
+        <button className="px-3 py-2 rounded text-white bg-emerald-500 hover:bg-emerald-600" onClick={() => handleClick()}>
+            Tambah menu
+        </button>
+    );
+};
 
 export default Menu;

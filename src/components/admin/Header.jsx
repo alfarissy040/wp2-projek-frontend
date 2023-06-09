@@ -26,7 +26,6 @@ const Header = (props) => {
                     WIB
                 </small>
             </div>
-            {props.btn}
         </header>
     );
 };
