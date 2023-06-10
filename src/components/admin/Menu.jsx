@@ -8,15 +8,18 @@ import LoadingAdminMenuList from "./loading/LoadingAdminMenuList";
 import axios from "axios";
 import AddMenu from "./AddMenu";
 import { showadminMenuStatus } from "../../features/ModalSlice";
+import Dialog from "./Dialog";
 
 const Menu = () => {
     const [searchValue, setSearchValue] = useState("");
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
     const [menus, setMenus] = useState([]);
     const [loading, setLoading] = useState(true);
-    const baseUrl = import.meta.env.VITE_BASE_URL;
 
     const modalStatus = useSelector(({ modal }) => modal.adminStatus);
     const adminMenuStatus = useSelector(({ modal }) => modal.adminMenuStatus);
+    const dialogStatus = useSelector(({ dialog }) => dialog.status);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -63,15 +66,8 @@ const Menu = () => {
             </ul>
             {modalStatus && <AdminModalDetail />}
             <AnimatePresence>{adminMenuStatus && <AddMenu />}</AnimatePresence>
+            <AnimatePresence>{dialogStatus && <Dialog />}</AnimatePresence>
         </Fragment>
-    );
-};
-
-const ButtonTambah = ({ handleClick }) => {
-    return (
-        <button className="px-3 py-2 rounded text-white bg-emerald-500 hover:bg-emerald-600" onClick={() => handleClick()}>
-            Tambah menu
-        </button>
     );
 };
 
