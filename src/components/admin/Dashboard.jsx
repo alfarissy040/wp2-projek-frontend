@@ -74,7 +74,7 @@ const Dashboard = () => {
                     <tbody>
                         {popularMenu.map((item, index) => (
                             <tr className="bg-zinc-100 border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
-                                <td className="px-6 py-4">{index}</td>
+                                <td className="px-6 py-4">{index + 1}</td>
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {item.name}
                                 </th>
