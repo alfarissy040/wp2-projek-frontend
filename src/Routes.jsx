@@ -6,6 +6,8 @@ import Checkout from "./components/Checkout";
 import Dashboard from "./components/admin/Dashboard";
 import Menu from "./components/admin/Menu";
 import Transaksi from "./components/admin/Transaksi";
+import Login from "./components/admin/Login";
+import AdminLoader from "./loader/AdminLoader";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
     {
         path: "/admin",
         element: <AdminLayout />,
+        loader: AdminLoader,
         children: [
             {
                 index: true,
@@ -44,6 +47,10 @@ const router = createBrowserRouter([
                 element: <Transaksi />,
             },
         ],
+    },
+    {
+        path: "/login",
+        element: <Login />,
     },
 ]);
 

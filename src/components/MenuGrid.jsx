@@ -2,17 +2,12 @@ import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../features/OrderSlice";
 import { PropTypes } from "prop-types";
 import { showModal } from "../features/ModalSlice";
-import { useState } from "react";
+import { memo, useState } from "react";
+import { formatter } from "../features/helper";
 
 const MenuGrid = (props) => {
     const [imageLoading, setImageLoading] = useState(true);
     const dispatch = useDispatch();
-
-    const formatter = new Intl.NumberFormat("ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumSignificantDigits: 3,
-    });
 
     return (
         <div className="w-full flex flex-col h-auto flex-1 rounded-lg shadow-md overflow-hidden border border-transparent bg-white">
@@ -52,4 +47,4 @@ MenuGrid.propTypes = {
     isSelected: PropTypes.bool.isRequired,
 };
 
-export default MenuGrid;
+export default memo(MenuGrid);

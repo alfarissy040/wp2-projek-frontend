@@ -3,13 +3,11 @@ import ModalCheckoutInvoice from "./ModalCheckoutInvoice";
 import { useState } from "react";
 import { HiOutlineQrcode, HiIdentification } from "react-icons/hi";
 import ModalCheckoutQr from "./ModalCheckoutQr";
-import { useDispatch } from "react-redux";
 
 const ModalCheckout = () => {
     const [step, setStep] = useState(1);
 
-    // const dispatch = useDispatch();
-    const handleNextStep = (data) => {
+    const handleNextStep = async () => {
         setStep(2);
     };
 

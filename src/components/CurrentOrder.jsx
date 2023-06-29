@@ -2,17 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import CartCard from "./CartCard";
 import { addOrder } from "../features/OrderSlice";
 import { AnimatePresence, motion } from "framer-motion";
+import { formatter } from "../features/helper";
 
 const CurrentOrder = () => {
     const items = useSelector(({ order }) => order.cart);
     const total = useSelector(({ order }) => order.cartSubTotal);
     const dispatch = useDispatch();
 
-    const formatter = new Intl.NumberFormat("ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumSignificantDigits: 3,
-    });
     return (
         <motion.div
             className="w-full h-[calc(100dvh-16px)] max-w-[18rem] sticky top-0 bg-white rounded-md shadow overflow-hidden"

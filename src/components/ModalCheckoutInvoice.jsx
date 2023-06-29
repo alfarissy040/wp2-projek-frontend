@@ -1,18 +1,44 @@
 import { Fragment, useState } from "react";
 import { PropTypes } from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCheckoutModalStatus } from "../features/ModalSlice";
+import { baseUrl } from "../features/helper";
 
 const ModalCheckoutInvoice = ({ handleNext }) => {
     const [identificationData] = useState({
-        name: null,
+        firstname: null,
+        lastname: null,
         email: null,
         phone: null,
     });
     const dispatch = useDispatch();
+    const orderMenu = useSelector(({ order }) => order.order);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        // const res = await axios.post(
+        //     baseUrl + "order",
+        //     JSON.stringify({
+        //         firstname: identificationData.firstname,
+        //         lastname: identificationData.lastname,
+        //         email: identificationData.email,
+        //         phone: identificationData.phone,
+        //         orders: orderMenu,
+        //     })
+        // );
+
+        const res = await fetch(`${baseUrl}order`, {
+            method: "post",
+            mode: "cors",
+            body: JSON.stringify({
+                firstname: identificationData.firstname,
+                lastname: identificationData.lastname,
+                email: identificationData.email,
+                phone: identificationData.phone,
+                orders: orderMenu,
+            }),
+        });
+        console.log(res);
         handleNext(identificationData);
     };
     return (
@@ -23,15 +49,29 @@ const ModalCheckoutInvoice = ({ handleNext }) => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-y-2">
                 <div>
                     <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">
-                        Fullname
+                        Firstname
                     </label>
                     <input
                         type="text"
-                        name="name"
-                        id="name"
+                        name="firstname"
+                        id="firstname"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Fullname"
-                        onChange={(e) => (identificationData.name = e.target.value)}
+                        placeholder="Firstname"
+                        onChange={(e) => (identificationData.firstname = e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">
+                        Lastname
+                    </label>
+                    <input
+                        type="text"
+                        name="lastname"
+                        id="lastname"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Lastname"
+                        onChange={(e) => (identificationData.lastname = e.target.value)}
                         required
                     />
                 </div>

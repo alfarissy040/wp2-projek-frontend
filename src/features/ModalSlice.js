@@ -7,7 +7,9 @@ export const ModalSlice = createSlice({
         checkoutStatus: false,
         adminStatus: false,
         adminMenuStatus: false,
+        adminModalEditStatus: false,
         dataId: null,
+        dataMenu: null,
     },
     reducers: {
         setModalStatus: (state, action) => {
@@ -44,12 +46,21 @@ export const ModalSlice = createSlice({
         showadminMenuStatus: (state, action) => {
             state.dataId = action.payload;
             // memunculkan modal
-            state.adminMenuStatus = true;
+            state.adminStatus = true;
+        },
+        setadminModalEdit: (state, action) => {
+            state.adminModalEditStatus = action.payload;
+        },
+
+        showadminModalEdit: (state, action) => {
+            state.dataMenu = action.payload;
+            // memunculkan modal
+            state.adminModalEditStatus = true;
         },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setModalStatus, showModal, setCheckoutModalStatus, setAdminModalStatus, showAdminModal, setadminMenuStatus, showadminMenuStatus } = ModalSlice.actions;
+export const { setModalStatus, showModal, setCheckoutModalStatus, setAdminModalStatus, showAdminModal, setadminMenuStatus, showadminMenuStatus, setadminModalEdit, showadminModalEdit } = ModalSlice.actions;
 
 export default ModalSlice.reducer;

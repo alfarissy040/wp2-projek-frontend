@@ -2,18 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutTableItem from "./CheckoutTableItem";
 import ModalCheckout from "./ModalCheckout";
 import { setCheckoutModalStatus } from "../features/ModalSlice";
+import { formatter } from "../features/helper";
 
 const Checkout = () => {
     const order = useSelector(({ order }) => order.order);
     const total = useSelector(({ order }) => order.orderSubTotal);
     const modal = useSelector(({ modal }) => modal.checkoutStatus);
     const dispatch = useDispatch();
-
-    const formatter = new Intl.NumberFormat("ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumSignificantDigits: 3,
-    });
 
     return (
         <div className="w-full max-w-4xl h-full mx-auto flex flex-col overflow-hidden rounded-md shadow-md">

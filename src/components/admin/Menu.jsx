@@ -1,56 +1,78 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import Header from "./Header";
 import MenuList from "./MenuList";
 import { useDispatch, useSelector } from "react-redux";
 import AdminModalDetail from "./AdminModalDetail";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import LoadingAdminMenuList from "./loading/LoadingAdminMenuList";
-import axios from "axios";
 import AddMenu from "./AddMenu";
-import { showadminMenuStatus } from "../../features/ModalSlice";
+import { setadminMenuStatus } from "../../features/ModalSlice";
 import Dialog from "./Dialog";
 import { MdSort, MdCheck } from "react-icons/md";
+import EditMenu from "./EditMenu";
+import { getMenus } from "../../features/AdminSlice";
 
 const Menu = () => {
-    const [searchValue, setSearchValue] = useState("");
     const baseUrl = import.meta.env.VITE_BASE_URL;
+    const [searchValue, setSearchValue] = useState("");
 
-    const [menus, setMenus] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [sortProperty, setSortProperty] = useState("name");
     const [sortStatus, setSortStatus] = useState(false);
+    const toggleSortMenu = useCallback(
+        (action) => {
+            if (action) {
+                setSortStatus(action);
+            } else {
+                setSortStatus(!sortStatus);
+            }
+        },
+        [sortStatus]
+    );
 
     const modalStatus = useSelector(({ modal }) => modal.adminStatus);
     const adminMenuStatus = useSelector(({ modal }) => modal.adminMenuStatus);
+    const adminModalEditStatus = useSelector(({ modal }) => modal.adminModalEditStatus);
     const dialogStatus = useSelector(({ dialog }) => dialog.status);
+    const menus = useSelector(({ admin }) => admin.menus.data);
+    const loading = useSelector(({ admin }) => admin.menus.loading);
     const dispatch = useDispatch();
+
+    const sortedMenus = useMemo(() => [...menus].sort((a, b) => (sortProperty === "name" ? a.name > b.name : parseInt(a.price) > parseInt(b.price))), [menus, sortProperty]);
+
+    const filteredMenus = useMemo(
+        () =>
+            sortedMenus.filter((item) => {
+                return item.name.toLowerCase().includes(searchValue.toLowerCase());
+            }),
+        [sortedMenus, searchValue]
+    );
 
     const handleChangeSortProperty = (sort) => {
         setSortProperty(sort);
-        setSortStatus(false);
+        toggleSortMenu(false);
     };
 
     useEffect(() => {
-        setLoading(true);
-        axios.get(baseUrl + "menus").then((res) => {
-            setLoading(false);
-            setMenus(res.data.data);
-        });
-    }, [baseUrl]);
+        dispatch(getMenus());
+
+        setInterval(() => {
+            dispatch(getMenus());
+        }, 30000);
+    }, []);
 
     return (
         <Fragment>
             <div className="flex items-center justify-between sticky top-0 bg-[#e3e0f3] z-40">
-                <Header label="Menu" />
-                <button className="px-3 py-2 rounded text-white bg-emerald-500 hover:bg-emerald-600 mr-3" onClick={() => dispatch(showadminMenuStatus(true))}>
-                    Tambah menu
+                <Header label="Menus" />
+                <button className="px-3 py-2 rounded text-white bg-emerald-500 hover:bg-emerald-600 mr-3" onClick={() => dispatch(setadminMenuStatus(true))}>
+                    Add menu
                 </button>
             </div>
             {/* search */}
             <div className="px-3 py-2 flex items-center gap-x-3">
                 {/* sort button */}
                 <div className="relative">
-                    <div className="p-2 rounded-full hover:bg-zinc-300 cursor-pointer" title="Sort By" onClick={() => setSortStatus(!sortStatus)}>
+                    <div className="p-2 rounded-full hover:bg-zinc-300 cursor-pointer" title="Sort By" onClick={() => toggleSortMenu()}>
                         <MdSort className="w-6 h-6" />
                     </div>
                     <AnimatePresence>
@@ -94,22 +116,34 @@ const Menu = () => {
                     </Fragment>
                 ) : (
                     <AnimatePresence mode="popLayout">
-                        {menus
-                            .sort((a, b) => (sortProperty === "name" ? a.name > b.name : parseInt(a.price) > parseInt(b.price)))
-                            .filter((item) => {
-                                return item.name.toLowerCase().includes(searchValue.toLowerCase());
-                            })
-                            .map((item) => (
-                                <motion.li key={item.id} layout>
-                                    <MenuList name={item.name} image={baseUrl + item.image} price={item.price} id={item.id} />
-                                </motion.li>
-                            ))}
+                        {filteredMenus.map((item) => (
+                            <motion.li key={item.id} layout>
+                                <MenuList
+                                    name={item.name}
+                                    image={`${baseUrl}${item.image}`}
+                                    price={parseInt(item.price)}
+                                    id={item.id}
+                                    data={{
+                                        id: item.id,
+                                        name: item.name,
+                                        image: `${baseUrl}${item.image}`,
+                                        price: parseInt(item.price),
+                                        description: item.description,
+                                    }}
+                                />
+                            </motion.li>
+                        ))}
                     </AnimatePresence>
                 )}
             </ul>
-            {modalStatus && <AdminModalDetail />}
-            <AnimatePresence>{adminMenuStatus && <AddMenu />}</AnimatePresence>
-            <AnimatePresence>{dialogStatus && <Dialog />}</AnimatePresence>
+            <AnimatePresence mode="wait">
+                <LayoutGroup>
+                    {modalStatus && <AdminModalDetail />}
+                    {adminMenuStatus && <AddMenu />}
+                    {adminModalEditStatus && <EditMenu />}
+                </LayoutGroup>
+                {dialogStatus && <Dialog />}
+            </AnimatePresence>
         </Fragment>
     );
 };

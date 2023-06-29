@@ -1,14 +1,9 @@
 import { PropTypes } from "prop-types";
 import { useEffect } from "react";
 import { useState } from "react";
+import { formatter } from "../features/helper";
 const CheckoutTableItem = (props) => {
     const [status, setStatus] = useState(false);
-
-    const formatter = new Intl.NumberFormat("ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumSignificantDigits: 3,
-    });
 
     const isDone = () => {
         return Date.now() - props.date > 5000 ? setStatus(true) : setStatus(false);

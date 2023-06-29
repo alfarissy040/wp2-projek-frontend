@@ -1,4 +1,6 @@
 import { PropTypes } from "prop-types";
+import { memo } from "react";
+
 const DashboardCard = (props) => {
     return (
         <div className="flex items-center justify-between rounded-md shadow-md px-8 py-5 flex-1 bg-white">
@@ -17,4 +19,4 @@ DashboardCard.propTypes = {
     count: PropTypes.number.isRequired,
 };
 
-export default DashboardCard;
+export default memo(DashboardCard);

@@ -1,13 +1,10 @@
 import { useDispatch } from "react-redux";
 import { addQuantities, removeQuantities } from "../features/OrderSlice";
 import { PropTypes } from "prop-types";
+import { formatter } from "../features/helper";
+import { memo } from "react";
 
 const CartCard = (props) => {
-    const formatter = new Intl.NumberFormat("ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumSignificantDigits: 3,
-    });
     const dispatch = useDispatch();
 
     return (
@@ -38,4 +35,4 @@ CartCard.propTypes = {
     quantities: PropTypes.number.isRequired,
 };
 
-export default CartCard;
+export default memo(CartCard);

@@ -63,7 +63,7 @@ export const OrderSlice = createSlice({
                     id: item.id,
                     name: item.name,
                     price: item.price,
-                    status: false,
+                    status: 0,
                     quantities: item.quantities,
                     date: date,
                 };
