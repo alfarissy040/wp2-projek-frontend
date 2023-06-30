@@ -3,9 +3,11 @@ import { PropTypes } from "prop-types";
 import { HiDotsVertical } from "react-icons/hi";
 import { showAdminModal, showadminModalEdit } from "../../features/ModalSlice";
 import { useDispatch } from "react-redux";
-import { formatter } from "../../features/helper";
+import { baseUrl, formatter } from "../../features/helper";
+import { showDialog } from "../../features/DialogSlice";
+import axios from "axios";
 
-const MenuList = (props) => {
+const AdminMenuList = (props) => {
     const [showTools, setShowTools] = useState(false);
     const tools = useRef();
     const toggleBtn = useRef();
@@ -20,6 +22,20 @@ const MenuList = (props) => {
     const handleEditMenu = () => {
         setShowTools(false);
         dispatch(showadminModalEdit(props.data));
+    };
+
+    const handleDelete = async () => {
+        var confirmasi = confirm("are you sure delete this menu");
+
+        if (!confirmasi) return null;
+
+        // const send = await fetch(baseUrl + "menus/" + props.id + "/delete", {
+        //     method: "DELETE",
+        // });
+
+        const send = await axios.delete(baseUrl + "menus/" + props.id + "/delete", { id: props.id });
+        console.log(send);
+        return send.status === 200 ? dispatch(showDialog({ status: "success", label: `Success delete menu` })) : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
     };
 
     useEffect(() => {
@@ -58,7 +74,9 @@ const MenuList = (props) => {
                             <button className="px-3 py-2 hover:bg-zinc-100 flex-1 w-full" onClick={handleEditMenu}>
                                 Edit
                             </button>
-                            <button className="px-3 py-2 hover:bg-zinc-100 flex-1 w-full">Delete</button>
+                            <button className="px-3 py-2 hover:bg-zinc-100 flex-1 w-full" onClick={handleDelete}>
+                                Delete
+                            </button>
                         </div>
                     )}
                 </div>
@@ -67,7 +85,7 @@ const MenuList = (props) => {
     );
 };
 
-MenuList.propTypes = {
+AdminMenuList.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
@@ -81,4 +99,6 @@ MenuList.propTypes = {
     }),
 };
 
-export default memo(MenuList);
+const MenuList = memo(AdminMenuList);
+
+export default MenuList;

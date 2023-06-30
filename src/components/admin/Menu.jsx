@@ -54,7 +54,6 @@ const Menu = () => {
 
     useEffect(() => {
         dispatch(getMenus());
-
         setInterval(() => {
             dispatch(getMenus());
         }, 30000);
@@ -126,7 +125,7 @@ const Menu = () => {
                                     data={{
                                         id: item.id,
                                         name: item.name,
-                                        image: `${baseUrl}${item.image}`,
+                                        image: item.image,
                                         price: parseInt(item.price),
                                         description: item.description,
                                     }}

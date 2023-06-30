@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl } from "./helper";
 
+// get dashboard data
 export const getDashboard = createAsyncThunk("admin/getDashboard", async () => {
-    console.log("get dashboard");
     const dataDashboard = await axios.get(baseUrl + "dashboard").then((res) => res.data);
     return {
         sold: dataDashboard.sold,
@@ -12,16 +12,19 @@ export const getDashboard = createAsyncThunk("admin/getDashboard", async () => {
     };
 });
 
+// get popular menus
 export const getPopularMenu = createAsyncThunk("admin/getPopularMenu", async () => {
     const popularMenus = await axios.get(baseUrl + "menus/popular").then((res) => res.data);
     return popularMenus;
 });
 
+// get all menu
 export const getMenus = createAsyncThunk("admin/getMenus", async () => {
     const menus = await axios.get(baseUrl + "menus").then((res) => res.data.data);
     return menus;
 });
 
+// get transaction data
 export const getTransaction = createAsyncThunk("admin/getTransaction", async () => {
     const transaction = await axios.get(baseUrl + "orders").then((res) => res.data);
     return transaction;

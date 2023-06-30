@@ -5,12 +5,12 @@ import { setAdminModalStatus, showadminModalEdit } from "../../features/ModalSli
 import { useEffect } from "react";
 import LoadingModalDetail from "../loading/LoadingModalDetail";
 import { getMenus } from "../../features/AdminSlice";
-import { formatter } from "../../features/helper";
+import { baseUrl, formatter } from "../../features/helper";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { showDialog } from "../../features/DialogSlice";
 
 const AdminModalDetail = () => {
-    const baseUrl = import.meta.env.VITE_BASE_URL;
-
     const dataId = useSelector(({ modal }) => modal.dataId);
     const loading = useSelector(({ admin }) => admin.menus.loading);
     const menus = useSelector(({ admin }) => admin.menus.data.filter(({ id }) => id === dataId))[0];
@@ -21,7 +21,25 @@ const AdminModalDetail = () => {
         dispatch(showadminModalEdit(menus));
     };
 
-    const handleDelete = () => {};
+    const handleSuccess = () => {
+        dispatch(showDialog({ status: "success", label: `Success delete menu` }));
+        dispatch(setAdminModalStatus(false));
+    };
+
+    const handleDelete = () => {
+        var confirmasi = confirm("are you sure delete this menu");
+        if (!confirmasi) return null;
+
+        try {
+            const deleteMenu = async () => {
+                const send = await axios.delete(baseUrl + "menus/" + dataId + "/delete");
+                return send.status;
+            };
+            return deleteMenu() === 200 ? handleSuccess() : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         if (menus === null) {
@@ -42,8 +60,8 @@ const AdminModalDetail = () => {
                     <img src={`${baseUrl}${menus.image}`} alt="" className="w-full h-full object-contain" />
                 </div>
                 {/* content */}
-                <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between">
-                    <div className="flex-1">
+                <div className="pr-3 py-2 overflow-y-auto scrollbar-thin flex flex-col justify-between flex-1 w-full">
+                    <div className="flex-1 w-full">
                         {/* title */}
                         <h2 className="text-3xl font-medium pr-5">{menus.name}</h2>
                         {/* price */}

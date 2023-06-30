@@ -3,6 +3,7 @@ import { PropTypes } from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { setCheckoutModalStatus } from "../features/ModalSlice";
 import { baseUrl } from "../features/helper";
+import axios from "axios";
 
 const ModalCheckoutInvoice = ({ handleNext }) => {
     const [identificationData] = useState({
@@ -16,28 +17,28 @@ const ModalCheckoutInvoice = ({ handleNext }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const res = await axios.post(
-        //     baseUrl + "order",
-        //     JSON.stringify({
-        //         firstname: identificationData.firstname,
-        //         lastname: identificationData.lastname,
-        //         email: identificationData.email,
-        //         phone: identificationData.phone,
-        //         orders: orderMenu,
-        //     })
-        // );
-
-        const res = await fetch(`${baseUrl}order`, {
-            method: "post",
-            mode: "cors",
-            body: JSON.stringify({
+        const res = await axios.post(
+            baseUrl + "pesan",
+            JSON.stringify({
                 firstname: identificationData.firstname,
                 lastname: identificationData.lastname,
                 email: identificationData.email,
                 phone: identificationData.phone,
                 orders: orderMenu,
-            }),
-        });
+            })
+        );
+
+        // const res = await fetch(`${baseUrl}order`, {
+        //     method: "post",
+        //     mode: "cors",
+        //     body: JSON.stringify({
+        //         firstname: identificationData.firstname,
+        //         lastname: identificationData.lastname,
+        //         email: identificationData.email,
+        //         phone: identificationData.phone,
+        //         orders: orderMenu,
+        //     }),
+        // });
         console.log(res);
         handleNext(identificationData);
     };
