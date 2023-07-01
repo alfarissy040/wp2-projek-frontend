@@ -80,6 +80,7 @@ export const OrderSlice = createSlice({
 
         clearOrder: (state) => {
             state.order = [];
+            state.orderSubTotal = 0;
         },
     },
 });
