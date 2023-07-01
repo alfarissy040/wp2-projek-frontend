@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import { QRCodeSVG } from "qrcode.react";
-import { formatter, randNum } from "../features/helper";
+import { baseUrl, formatter, randNum } from "../features/helper";
 import { HiChevronDown } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo, useState } from "react";
@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { setCheckoutModalStatus } from "../features/ModalSlice";
 import { clearOrder } from "../features/OrderSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const PaymentDetail = ({ label, handleChange }) => {
     const [menuDetail, setMenuDetail] = useState(false);
@@ -29,10 +30,20 @@ const PaymentDetail = ({ label, handleChange }) => {
         []
     );
 
-    const handleDone = () => {
-        dispatch(clearOrder());
-        dispatch(setCheckoutModalStatus(false));
-        navigate("/");
+    const handleDone = async () => {
+        const formData = new FormData();
+        formData.append("orders", JSON.stringify(orders));
+
+        const res = await axios.post(baseUrl + "pesan", formData).then((res) => {
+            console.log(res.data);
+            return res.data;
+        });
+
+        if (res.status === "success") {
+            dispatch(clearOrder());
+            dispatch(setCheckoutModalStatus(false));
+            navigate("/");
+        }
     };
 
     return (

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setadminMenuStatus } from "../../features/ModalSlice";
 import axios from "axios";
 import { showDialog } from "../../features/DialogSlice";
+import { getMenus } from "../../features/AdminSlice";
 
 const AddMenu = () => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -30,6 +31,7 @@ const AddMenu = () => {
     };
 
     const handleSuccess = () => {
+        dispatch(getMenus());
         dispatch(showDialog({ status: "success", label: `Berhasil Menambahkan ${dataForm.name} ke menu` }));
         dispatch(setadminMenuStatus(false));
     };

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { baseUrl, formatter } from "../../features/helper";
 import { showDialog } from "../../features/DialogSlice";
 import axios from "axios";
+import { getMenus } from "../../features/AdminSlice";
 
 const AdminMenuList = (props) => {
     const [showTools, setShowTools] = useState(false);
@@ -13,6 +14,11 @@ const AdminMenuList = (props) => {
     const toggleBtn = useRef();
 
     const dispatch = useDispatch();
+
+    const successDelete = () => {
+        dispatch(getMenus());
+        dispatch(showDialog({ status: "success", label: `Success delete menu` }));
+    };
 
     const handleShowDetail = () => {
         setShowTools(false);
@@ -29,13 +35,12 @@ const AdminMenuList = (props) => {
 
         if (!confirmasi) return null;
 
-        // const send = await fetch(baseUrl + "menus/" + props.id + "/delete", {
-        //     method: "DELETE",
-        // });
+        const formData = new FormData();
+        formData.append("id", props.id);
 
-        const send = await axios.delete(baseUrl + "menus/" + props.id + "/delete", { id: props.id });
+        const send = await axios.delete(baseUrl + "menus/" + props.id + "/delete", formData);
         console.log(send);
-        return send.status === 200 ? dispatch(showDialog({ status: "success", label: `Success delete menu` })) : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
+        return send.status === 200 ? successDelete() : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
     };
 
     useEffect(() => {

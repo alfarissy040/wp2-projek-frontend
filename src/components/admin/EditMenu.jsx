@@ -6,16 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { setadminModalEdit } from "../../features/ModalSlice";
 import axios from "axios";
 import { showDialog } from "../../features/DialogSlice";
+import { getMenus } from "../../features/AdminSlice";
+import { baseUrl } from "../../features/helper";
 
 const EditMenu = () => {
-    const baseUrl = import.meta.env.VITE_BASE_URL;
-
-    const [dataForm] = useState({});
-    const [dataFormImage, setDataFormImage] = useState(null);
-    const imageRef = useRef();
-
     const dispatch = useDispatch();
     const props = useSelector(({ modal }) => modal.dataMenu);
+
+    const [dataForm] = useState({
+        name: props.name,
+        image: props.image,
+        price: props.price,
+        description: props.description,
+    });
+    const [dataFormImage, setDataFormImage] = useState(null);
+    const imageRef = useRef();
 
     const handleAddImage = (e) => {
         e.preventDefault();
@@ -28,6 +33,7 @@ const EditMenu = () => {
     };
 
     const handleSuccess = () => {
+        dispatch(getMenus());
         dispatch(showDialog({ status: "success", label: `Berhasil mengubah ${dataForm.name}` }));
         dispatch(setadminModalEdit(false));
     };
@@ -38,11 +44,17 @@ const EditMenu = () => {
 
         if (dataFormImage) formData.append("image", dataFormImage);
 
-        formData.append("name", dataForm?.name !== null ? dataForm?.name : props.name);
-        formData.append("price", dataForm?.price !== null ? dataForm?.price : props.price);
-        formData.append("description", dataForm?.description !== null ? dataForm?.description : props.description);
+        formData.append("name", dataForm.name);
+        formData.append("price", dataForm.price);
+        formData.append("description", dataForm.description);
 
-        const send = await axios.put(baseUrl + `menus/${props.id}/update`, formData);
+        // const send = await axios({
+        //     method: "PUT",
+        //     url: baseUrl + `menus/${props.id}/update`,
+        //     data: formData,
+        // });
+
+        const send = await axios.post(baseUrl + `menus/${props.id}/update`, formData);
         return send.status === 200 ? handleSuccess() : dispatch(showDialog({ status: "failed", label: `Gagal mengubah menu` }));
     };
     return (
@@ -83,8 +95,7 @@ const EditMenu = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Produk name"
                                 onChange={(e) => (dataForm.name = e.target.value)}
-                                defaultValue={dataForm?.name ? dataForm.name : props.name}
-                                value={dataForm.name}
+                                defaultValue={props.name}
                                 required
                             />
                         </div>
@@ -100,8 +111,7 @@ const EditMenu = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Price"
                                 onChange={(e) => (dataForm.price = e.target.value)}
-                                defaultValue={dataForm?.price ? dataForm.price : props.price}
-                                value={dataForm.price}
+                                defaultValue={props.price}
                                 required
                             />
                         </div>
@@ -115,8 +125,7 @@ const EditMenu = () => {
                                 className="w-full flex-1 resize-y px-3 py-2 border rounded-md"
                                 placeholder="Description"
                                 onChange={(e) => (dataForm.description = e.target.value)}
-                                defaultValue={dataForm?.description ? dataForm.description : props.description}
-                                value={dataForm.description}
+                                defaultValue={props.description}
                                 required
                             ></textarea>
                         </div>
