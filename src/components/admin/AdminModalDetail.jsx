@@ -31,6 +31,9 @@ const AdminModalDetail = () => {
         if (!confirmasi) return null;
 
         try {
+            const formData = new FormData();
+            formData.append("id", dataId);
+
             const deleteMenu = async () => {
                 const send = await axios.delete(baseUrl + "menus/" + dataId + "/delete");
                 return send.status;

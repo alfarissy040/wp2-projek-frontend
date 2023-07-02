@@ -39,7 +39,6 @@ const AdminMenuList = (props) => {
         formData.append("id", props.id);
 
         const send = await axios.delete(baseUrl + "menus/" + props.id + "/delete", formData);
-        console.log(send);
         return send.status === 200 ? successDelete() : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
     };
 

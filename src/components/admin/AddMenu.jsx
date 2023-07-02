@@ -85,7 +85,6 @@ const AddMenu = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Produk name"
                                 onChange={(e) => (dataForm.name = e.target.value)}
-                                value={dataForm.name}
                                 required
                             />
                         </div>
@@ -101,7 +100,6 @@ const AddMenu = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Price"
                                 onChange={(e) => (dataForm.price = e.target.value)}
-                                value={dataForm.price}
                                 required
                             />
                         </div>
@@ -109,9 +107,14 @@ const AddMenu = () => {
                             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
                                 Description
                             </label>
-                            <textarea name="description" id="description" className="w-full flex-1 resize-y px-3 py-2 border rounded-md" placeholder="Description" onChange={(e) => (dataForm.description = e.target.value)} required>
-                                {dataForm.description ? dataForm.description : ""}
-                            </textarea>
+                            <textarea
+                                name="description"
+                                id="description"
+                                className="w-full flex-1 resize-y px-3 py-2 border rounded-md"
+                                placeholder="Description"
+                                onChange={(e) => (dataForm.description = e.target.value)}
+                                required
+                            ></textarea>
                         </div>
                         <div className="w-full flex justify-end gap-x-3">
                             <button type="reset" className="px-3 py-2 rounded text-white bg-red-500 hover:bg-red-600" onClick={handleCancel}>
