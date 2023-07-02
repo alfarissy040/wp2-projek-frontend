@@ -30,18 +30,14 @@ const AdminModalDetail = () => {
         var confirmasi = confirm("are you sure delete this menu");
         if (!confirmasi) return null;
 
-        try {
-            const formData = new FormData();
-            formData.append("id", dataId);
+        const formData = new FormData();
+        formData.append("id", dataId);
 
-            const deleteMenu = async () => {
-                const send = await axios.delete(baseUrl + "menus/" + dataId + "/delete");
-                return send.status;
-            };
-            return deleteMenu() === 200 ? handleSuccess() : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
-        } catch (error) {
-            console.log(error);
-        }
+        const deleteMenu = async () => {
+            const send = await axios.post(baseUrl + "menus/" + dataId + "/delete");
+            return send.status;
+        };
+        return deleteMenu() === 200 ? handleSuccess() : dispatch(showDialog({ status: "failed", label: `Failed delete menu` }));
     };
 
     useEffect(() => {
